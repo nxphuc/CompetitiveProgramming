@@ -46,7 +46,8 @@ struct Point {
     Point conj() { return Point(x, -y); }
     double norm() { return x*x + y*y; }
     // Note: There are 2 ways for implementing len():
-    // 1. sqrt(norm()) --> fast, but inaccurate (produce some values that are of order X^2)
+    // 1. sqrt(norm()) --> fast, but inaccurate
+    // (produce some values that are of order X^2)
     // 2. hypot(x, y) --> slow, but much more accurate
     double len() { return sqrt(norm()); }
     Point rotate(double alpha) {
@@ -73,7 +74,8 @@ double distToLine(Point p, Point a, Point b, Point &c) {
 }
 
 // Distance from p to segment ab (closest Point --> c)
-double distToLineSegment(Point p, Point a, Point b, Point &c) {
+double distToLineSegment(
+    Point p, Point a, Point b, Point &c) {
     Point ap = p - a, ab = b - a;
     double u = (ap * ab) / ab.norm();
     if (u < 0.0) {
@@ -89,7 +91,10 @@ double distToLineSegment(Point p, Point a, Point b, Point &c) {
 
 struct Line {
     double a, b, c;
-    Point A, B; // Added for polygon intersect line. Do not rely on assumption that //these are valid Line(double a, double b, double c) : a(a), b(b), c(c) {}
+    Point A, B;
+    // Added for polygon intersect line. Do not rely on assumption that
+    //these are valid
+    Line(double a, double b, double c) : a(a), b(b), c(c) {}
     Line(Point A, Point B) : A(A), B(B) {
         a = B.y - A.y; b = A.x - B.x;
         c = - (a * A.x + b * A.y);

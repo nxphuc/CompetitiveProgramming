@@ -143,8 +143,8 @@ void upIT(const int& lef, const int& rig, const int& u, const int& v, const int&
             upIT(lef, mid, u, mid, k << 1);
             upIT(mid + 1, rig, mid + 1, v, (k << 1) + 1);
         }
-        it[k] = min(it[k << 1], it[(k << 1) + 1]);
-        it[k].first += add[k];
+    it[k] = min(it[k << 1], it[(k << 1) + 1]);
+    it[k].first += add[k];
 }
 
 int main() {
