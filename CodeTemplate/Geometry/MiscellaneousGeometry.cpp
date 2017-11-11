@@ -1,48 +1,31 @@
 #define _USE_MATH_DEFINES
 #define EPS 1e-6
 
-double DEG_to_RAD(double d) {
-    return d * M_PI / 180.0;
-}
-double RAD_to_DEG(double r) {
-    return r * 180.0 / M_PI;
-}
+double DEG_to_RAD(double d) { return d * M_PI / 180.0; }
+double RAD_to_DEG(double r) { return r * 180.0 / M_PI; }
 inline int cmp(double a, double b) {
-    return (a < b - EPS)
-        ? -1 : ((a > b + EPS) ? 1 : 0);
+    return (a < b - EPS) ? -1 : ((a > b + EPS) ? 1 : 0);
 }
 
 struct Point {
     double x, y;
-    Point(double x = 0.0, double y = 0.0)
-    : x(x), y(y) {}
+    Point(double x = 0.0, double y = 0.0) : x(x), y(y) {}
     
-    Point operator + (Point a) {
-        return Point(x+a.x, y+a.y);
-    }
-    Point operator - (Point a) {
-        return Point(x-a.x, y-a.y);
-    }
-    Point operator * (double k) {
-        return Point(x*k, y*k);
-    }
-    Point operator / (double k) {
-        return Point(x/k, y/k);
-    }
-    double operator * (Point a) {
-        return x*a.x + y*a.y;
-    } // dot product
-    double operator % (Point a) {
-        return x*a.y - y*a.x;
-    } // cross product
+    Point operator + (Point a) { return Point(x+a.x, y+a.y); }
+    Point operator - (Point a) { return Point(x-a.x, y-a.y); }
+    Point operator * (double k) { return Point(x*k, y*k); }
+    Point operator / (double k) { return Point(x/k, y/k); }
+    double operator * (Point a) { return x*a.x + y*a.y; } // dot product
+    double operator % (Point a) { return x*a.y - y*a.x; } // cross product
     int cmp(Point q) const {
         if (int t = ::cmp(x,q.x)) return t;
         return ::cmp(y,q.y);
     }
-    #define Comp(x)
-    bool operator x (Point q) const { return cmp(q) x 0; }
+
+    #define Comp(x) bool operator x (Point q) const { return cmp(q) x 0; }
     Comp(>) Comp(<) Comp(==) Comp(>=) Comp(<=) Comp(!=)
     #undef Comp
+    
     Point conj() { return Point(x, -y); }
     double norm() { return x*x + y*y; }
     // Note: There are 2 ways for implementing len():
@@ -56,9 +39,7 @@ struct Point {
     }
 };
 
-int ccw(Point a, Point b, Point c) {
-    return cmp((b-a)%(c-a),0);
-}
+int ccw(Point a, Point b, Point c) { return cmp((b-a) % (c-a), 0); }
 
 // angle AOB a = a - o; b = b - o;
 double angle(Point a, Point o, Point b) {
@@ -108,9 +89,11 @@ struct Line {
 bool areParallel(Line l1, Line l2) {
     return cmp(l1.a*l2.b, l1.b*l2.a) == 0;
 }
+
 bool areSame(Line l1, Line l2) {
     return areParallel(l1 ,l2) && cmp(l1.c*l2.a, l2.c*l1.a) == 0;
 }
+
 bool areIntersect(Line l1, Line l2, Point &p) {
     if (areParallel(l1, l2)) return false;
     double dx = l1.b*l2.c - l2.b*l1.c;
@@ -118,6 +101,7 @@ bool areIntersect(Line l1, Line l2, Point &p) {
     double d = l1.a*l2.b - l2.a*l1.b;
     p = Point(dx/d, dy/d); return true;
 }
+
 void closestPoint(Line l, Point p, Point &ans) {
     if (fabs(l.b) < EPS) {
         ans.x = -(l.c) / l.a;
@@ -130,6 +114,7 @@ void closestPoint(Line l, Point p, Point &ans) {
     Line perp(l.b, -l.a, - (l.b*p.x - l.a*p.y));
     areIntersect(l, perp, ans);
 }
+
 void reflectionPoint(Line l, Point p, Point &ans) {
     Point b;
     closestPoint(l, p, b);
