@@ -1,6 +1,6 @@
 import queue
 
-MAX = 1010
+MAX = 2010
 INF = int(1e9)
 
 # khai báo class Node với id là tên đỉnh, dist là chi phí
@@ -34,18 +34,14 @@ def BellmanFord(source, graph, dist):
 
 if __name__ == '__main__':
     t = int(input())
-    graph = [Triad(0, 0, 0) for i in range(MAX)]
-    dist = [INF for i in range(MAX)]
-    path = [-1 for i in range(MAX)]
-    n, m, u, v, w = -1, -1, -1, -1, -1
-    while t > 0:
-        t -= 1
-        n, m = map(int, input().split())
-        for i in range(n):
-            dist[i], path[i] = INF, -1
+    for cs in range(t):
+        n, m = map(int, input().split(' '))
+        dist = [INF for i in range(n+5)]
+        path = [-1 for i in range(n+5)]
+        graph = []
         for i in range(m):
-            u, v, w = map(int, input().split())
-            graph[i] = Triad(u, v, w)
+            u, v, w = map(int, input().split(' '))
+            graph.append(Triad(u, v, w))
         res = BellmanFord(0, graph, dist)
         if res == False:
             print("possible")

@@ -45,8 +45,8 @@ int doit() {
 }
 
 int main() {
-	freopen("A-large.in", "rt", stdin);
-	freopen("A-large.ou", "wt", stdout);
+	freopen("A-large-practice.in", "rt", stdin);
+	freopen("A-large-practice.ou", "wt", stdout);
 	ios::sync_with_stdio(false);
 
 	cin >> t;
