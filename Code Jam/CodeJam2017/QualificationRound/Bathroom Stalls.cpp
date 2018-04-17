@@ -40,59 +40,59 @@ const double eps = 1e-6;
 #define pll pair<ll,ll>
 
 struct Node{
-	ll l, r;
+    ll l, r;
 
-	Node(ll l = 0, ll r = 0) : l(l), r(r) {}
+    Node(ll l = 0, ll r = 0) : l(l), r(r) {}
 
-	bool operator<(const Node& n) const{
-		ll x = min(l, r);
-		ll y = min(n.l, n.r);
-		if (x != y)
-			return x > y;
-		x = max(l, r);
-		y = max(n.l, n.r);
-		return x > y;
-	}
+    bool operator<(const Node& n) const{
+        ll x = min(l, r);
+        ll y = min(n.l, n.r);
+        if (x != y)
+            return x > y;
+        x = max(l, r);
+        y = max(n.l, n.r);
+        return x > y;
+    }
 };
 
 Node makeNode(ll n){
-	if (n & 1)
-		return Node(n/2, n/2);
-	else
-		return Node(n/2-1, n/2);
+    if (n & 1)
+        return Node(n/2, n/2);
+    else
+        return Node(n/2-1, n/2);
 }
 
 pll solve(ll n, ll k){
-	map<Node, ll> mymap;
-	Node tmp;
-	ll cnt;
-	mymap[makeNode(n)] = 1;
-	while (!mymap.empty()){
-		tmp = mymap.begin()->first;
-		cnt = mymap.begin()->second;
-		mymap.erase(mymap.begin());
-		k -= cnt;
-		if (k <= 0)
-			return mp(max(tmp.l, tmp.r), min(tmp.l, tmp.r));
-		mymap[makeNode(tmp.l)] += cnt;
-		mymap[makeNode(tmp.r)] += cnt;
-	}
+    map<Node, ll> mymap;
+    Node tmp;
+    ll cnt;
+    mymap[makeNode(n)] = 1;
+    while (!mymap.empty()){
+        tmp = mymap.begin()->first;
+        cnt = mymap.begin()->second;
+        mymap.erase(mymap.begin());
+        k -= cnt;
+        if (k <= 0)
+            return mp(max(tmp.l, tmp.r), min(tmp.l, tmp.r));
+        mymap[makeNode(tmp.l)] += cnt;
+        mymap[makeNode(tmp.r)] += cnt;
+    }
 }
 
 int main(){
-	freopen("C-large.in", "rt", stdin);
-	freopen("C-large.ou", "wt", stdout);
-	ios::sync_with_stdio(false);
+    freopen("C-large.in", "rt", stdin);
+    freopen("C-large.ou", "wt", stdout);
+    ios::sync_with_stdio(false);
 
-	int T;
-	ll n, k;
+    int T;
+    ll n, k;
 
-	cin >> T;
-	FOR(cs,1,T){
-		cin >> n >> k;
-		pll res = solve(n, k);
-		cout << "Case #" << cs << ": " << res.fi << " " << res.se << "\n";
-	}
+    cin >> T;
+    FOR(cs,1,T){
+        cin >> n >> k;
+        pll res = solve(n, k);
+        cout << "Case #" << cs << ": " << res.fi << " " << res.se << "\n";
+    }
 
-	return 0;
+    return 0;
 }
