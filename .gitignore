@@ -4,6 +4,7 @@ DebugVS
 cb
 BigO Coding
 UpCoder HCMUP
+*.jnlp
 *.exe
 *.vscode
 *.in
