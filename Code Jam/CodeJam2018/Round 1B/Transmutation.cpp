@@ -29,7 +29,7 @@ int canMake(ll need, int id) {
     return res;
 }
 
-long long doTestCase() {
+ll doTestCase() {
     int n;
     cin >> n;
 
