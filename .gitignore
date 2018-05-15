@@ -15,4 +15,5 @@ Environment
 *.ou1
 *.ou2
 *.o
+testing_tool.py
 test.*
