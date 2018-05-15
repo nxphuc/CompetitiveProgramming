@@ -4,9 +4,11 @@ DebugVS
 cb
 BigO Coding
 UpCoder HCMUP
+Environment
 *.jnlp
 *.exe
 *.vscode
+*.bak
 *.in
 *.ou
 *.log
